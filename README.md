@@ -1,10 +1,10 @@
-#Quantum Computing Research Scraper & Institution Mapping
+# Quantum Computing Research Scraper & Institution Mapping
 
 This repository contains a complete workflow for tracking emerging research in quantum computing using automated scraping, metadata cleaning, and institution extraction. The goal of this project is to identify which institutions, labs, and authors are most active and what type of research is emerging in quantum computing to understand the landscape.
 
 ---
 
-##Project Overview
+## Project Overview
 
 The pipeline performs three major tasks:
 
