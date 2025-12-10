@@ -159,6 +159,82 @@ fallback to email domain inference when available
 
 The full script is shown below but not executed during rendering.
 
+``` python
+import pandas as pd
+import requests
+import PyPDF2
+import re
+import io
+from tqdm import tqdm
+
+def extract_institution_from_pdf(pdf_url: str):
+    try:
+        response = requests.get(pdf_url, timeout=10)
+        if response.status_code != 200:
+            return None
+
+        pdf_file = io.BytesIO(response.content)
+        reader = PyPDF2.PdfReader(pdf_file)
+
+        text = ""
+        for page_num in range(min(2, len(reader.pages))):
+            text += reader.pages[page_num].extract_text() + "\n"
+
+
+        inst_regex = r"""
+            ([A-Z][A-Za-z&\-\s]*                       
+            (University|Institute|Laboratory|College|
+            Department|Centre|Center|School)[^,\n]*)   
+        """
+
+        matches = re.findall(inst_regex, text, flags=re.VERBOSE)
+        if matches:
+            return matches[0][0].strip()
+
+    except Exception:
+        return None
+
+    return None
+
+def extract_institution_from_email(author_block):
+    """Try to infer institution from email domain."""
+    match = re.search(r'@([A-Za-z0-9\.\-]+)', author_block)
+    if match:
+        domain = match.group(1)
+        if "gmail" in domain:
+            return None
+        return domain  
+    return None
+
+df = pd.read_csv("quantum_computing_clean_onlyQC.csv")
+
+institutions = []
+
+print("Extracting institutions...\n")
+
+for idx, row in tqdm(df.iterrows(), total=len(df)):
+    pdf_url = row["pdf_url"]
+    authors = row["authors"].split(";")
+    first_author = authors[0].strip()
+
+    institution = extract_institution_from_pdf(pdf_url)
+
+    if institution is None:
+        institution = extract_institution_from_email(first_author)
+
+    if institution is None:
+        institution = "Unknown"
+
+    institutions.append(institution)
+
+
+df["first_author_institution"] = institutions
+
+df.to_csv("quantum_computing_with_institutions.csv", index=False)
+
+print("Saved to quantum_computing_with_institutions.csv")
+```
+
 # Discussion
 
 This analysis highlights which universities, research centers, and labs
