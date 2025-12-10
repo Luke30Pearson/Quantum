@@ -40,16 +40,17 @@ A fully documented analysis in `quant.qmd` that includes:
 
 ---
 
-## Repository Structure
 
-quant/
-├── quant.qmd
-├── scrape_incremental.py
-├── quantum_computing_metadata.csv
-├── quantum_computing_clean_onlyQC.csv
-├── quantum_computing_with_institutions.csv
-├── last_scrape.txt
-└── README.md
+| File | Description |
+|------|-------------|
+| `quant.qmd` | Full written report and executable analysis (Quarto). Includes the institution-extraction code. |
+| `scrape_incremental.py` | Script for continuously pulling new quantum computing papers from arXiv. |
+| `quantum_computing_metadata.csv` | Raw scraped metadata collected by the incremental scraper. |
+| `quantum_computing_clean_onlyQC.csv` | Cleaned dataset before institution extraction. |
+| `quantum_computing_with_institutions.csv` | Final enriched dataset with institution column added. |
+| `last_scrape.txt` | Tracks the most recent arXiv scrape date. |
+
+
 
 
 
