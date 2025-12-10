@@ -3,6 +3,9 @@
 This repository contains a complete workflow for tracking emerging research in quantum computing using automated scraping, metadata cleaning, and institution extraction. The goal of this project is to identify which institutions, labs, and authors are most active and what type of research is emerging in quantum computing to understand the landscape.
 
 ---
+## Research Question
+
+The goal of this project is to give researchers the chance to see what is emerging in the field of quantum computing and be able to view new papers within their field. This is to help them understand where they should begin their next project and what topics they are too far behind in to catch up.
 
 ## Project Overview
 
@@ -49,6 +52,10 @@ A fully documented analysis in `quant.qmd` that includes:
 | `quantum_computing_clean_onlyQC.csv` | Cleaned dataset before institution extraction. |
 | `quantum_computing_with_institutions.csv` | Final enriched dataset with institution column added. |
 | `last_scrape.txt` | Tracks the most recent arXiv scrape date. |
+
+## Results/Conclusion
+
+Overall I was able to pull thousands of papers with data helpful to researchers. They are able to track what institutions they are performing quantum computing at, what authors are in the field, the subfield of the paper, and view each individual paper without searching. This tool can help them with their next project and gain a better understanding of their field. 
 
 
 
